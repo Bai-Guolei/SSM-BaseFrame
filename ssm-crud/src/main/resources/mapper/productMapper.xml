@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- 包名+文件名 -->
+<mapper namespace="com.zcxa.share.dao.ProductMapper">
+    <!-- 返回结果为list但不用申明mybatis会直接转 -->
+    <select id="selectAllProduct" resultType="com.zcxa.share.vo.Product">
+        SELECT ID id, Name name, Description description, UnitPrice unitPrice,ImageUrl imageUrl, IsNew isNew FROM products
+    </select>
+    
+    <!-- 根据id查找产品 -->
+    <select id="findProductById" resultType="com.zcxa.share.vo.Product" parameterType="long">
+    	select * from products where id = #{id}
+    </select>
+    
+    <!-- 插入语句 -->
+    <insert id="insertProduct" parameterType="com.zcxa.share.vo.Product">
+    	insert into products (name,description,UnitPrice,ImageUrl,IsNew) 
+    	values (#{name},#{description},#{UnitPrice},#{ImageUrl},#{IsNew})
+    </insert>
+    
+    <!-- 修改语句 -->
+    <update id="updateProduct" parameterType="com.zcxa.share.vo.Product">
+    	update products set description = #{description},IsNew = #{isNew} where ID = #{id}
+    </update>
+    
+    <!-- 删除 -->
+    <delete id="deleteProductById" parameterType="int">
+    	delete from products where id = #{id}
+    </delete>
+    <!-- 动态sql之where -->
+    <select id="ifTest" resultType="com.zcxa.share.vo.Product">
+    	select * from products 
+    	<!-- where标签自动移除第一个and -->
+    	<where>
+	    	<if test="Name != null">
+	    		and Name like CONCAT(CONCAT('%',#{Name}),'%')
+	    	</if>
+	    	<if test="Description != null">
+	    		and Description like CONCAT(CONCAT('%',#{Description}),'%')
+	    	</if>
+    	</where>
+    </select>
+	<!-- trim标签 -->    
+    <select id="trimTest" resultType="com.zcxa.share.vo.Product">
+    	select * from products 
+    	<!-- 移除首部所有指定在 prefixOverrides 属性中的内容，并且插入 prefix 属性中指定的内容-->
+    	<trim prefix="where" prefixOverrides="AND|OR">
+    		<if test="Name != null">
+	    		and Name like #{Name}
+	    	</if>
+	    	<if test="Description != null">
+	    		and Description like CONACT(CONACT('%',#{Description}),'%')
+	    	</if>
+    	</trim>
+    </select>
+    <!-- foreach 测试 -->
+    <select id="foreachTest" resultType="com.zcxa.share.vo.Product">
+    	select * from products
+    	<where>
+    		<if test="list != null">
+	    		<foreach item="id" index="index" collection="list"  open="id in(" separator="," close=")">#{id}</foreach>
+    		</if>
+    	</where>
+    
+    </select>
+    <!-- 一对一查询 -->
+    <select id="selectProWithCate" parameterType="int" resultMap="productInfoMap">
+    	SELECT * FROM products p ,category c
+		WHERE p.ID = c.id
+		and p.ID =  #{id} 
+    </select>
+    
+    <resultMap id="productInfoMap" type="com.zcxa.share.vo.Product" >
+        <id column="id" property="Id" />
+        <result column="name" property="Name" />
+        <result column="description" property="Description" />
+        <result column="unitprice" property="UnitPrice" />
+        <result column="imageUrl" property="ImageUrl" />
+        <result column="isnew" property="IsNew" />
+        <result column="citycode" property="cityCode" />
+        <!-- column：传递子查询参数，如果要处理符复合主键，使用column= "{prop1=col1,prop2=col2}"  -->
+        <!-- select：子查询语句id -->
+        <association property="category" javaType="com.zcxa.share.vo.Category">
+        	<id property="id" column="id"/>
+        	<result property="categoryName" column="category_name"/>
+        	<result property="remark" column="remark"/>
+        </association>
+    </resultMap>
+    <!-- 一对多查询 -->
+    <select id="selectCollection" resultMap="selectCollectionMap" parameterType="int">
+    	SELECT * FROM products c
+		left join category p on c.IsNew = p.id
+		WHERE p.ID = #{id}
+    </select>
+    <resultMap type="com.zcxa.share.vo.Category" id="selectCollectionMap">
+    	<id property="id" column="id"/>
+    	<result property="categoryName" column="category_name"/>
+       	<result property="remark" column="remark"/>
+       	<collection property="productList" ofType="com.zcxa.share.vo.Product">
+       		<id column="id" property="Id" />
+	        <result column="name" property="Name" />
+	        <result column="description" property="Description" />
+	        <result column="unitprice" property="UnitPrice" />
+	        <result column="imageUrl" property="ImageUrl" />
+	        <result column="isnew" property="IsNew" />
+	        <result column="citycode" property="cityCode" />
+       	</collection>
+    </resultMap>
+    <!-- 使用map查询 -->
+    <select id="selectProductMap" parameterType="Map" resultType="com.zcxa.share.vo.Product">
+    	SELECT * FROM products p where p.Name = #{pname} and p.IsNew = #{pnew}
+    </select>
+     <!-- 使用参数注解查询 -->
+    <select id="selectProductParams" resultType="com.zcxa.share.vo.Product">
+    	SELECT * FROM products p where p.Name = #{pname} and p.IsNew = #{pnew}
+    </select>
+</mapper>
