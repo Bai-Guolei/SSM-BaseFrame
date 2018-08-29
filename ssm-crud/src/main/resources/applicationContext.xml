@@ -30,7 +30,7 @@
 	
 	<!-- ================mybatis整合配置================== -->
 	<!-- 配置和mybatis -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean	">
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 			<!-- 制定mybatis全局配置的位置 -->
 		<property name="configLocation" value="classpath:mybatis.xml"></property>
 		<!-- 数据源 -->
@@ -76,9 +76,9 @@
 		</tx:attributes>
 	</tx:advice>
 	<!-- 定时任务 -->
-	<task:scheduled-tasks>
-		<task:scheduled ref="taskerService" method="findProduct" cron="0 0/5 * * * ?"/>
-	</task:scheduled-tasks>
+<!-- 	<task:scheduled-tasks> -->
+<!-- 		<task:scheduled ref="taskerService" method="findProduct" cron="0 0/5 * * * ?"/> -->
+<!-- 	</task:scheduled-tasks> -->
 	<!-- spring配置文件的核心点（数据源、与mybatis的整合、事务控制） -->
-	
+	<import resource="spring-mongodb.xml"/>
 </beans>

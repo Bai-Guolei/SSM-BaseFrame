@@ -36,4 +36,9 @@ public class ProductService {
 		p.setTotal(pageInfo.getTotal());
 		return p;
 	}
+	
+	
+	public void getMessage() {
+		
+	}
 }

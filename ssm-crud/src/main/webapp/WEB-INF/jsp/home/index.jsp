@@ -7,10 +7,15 @@
 <%@include file="/common.jsp"%>
 <%@include file="/header.jsp"%>
 <script src="${ROOT}/js/bus-common.js"></script>
-<title>Insert title here</title>
-
+<title>报告生成</title>
 </head>
 <body>
+<header>
+<!-- 引入菜单 -->
+<%@include file="/WEB-INF/jsp/menu.jsp" %>
+<!-- 菜单编码 -->
+<input type="hidden" id="menuCode" value="0">
+</header>
 <!-- 列表 -->
 <div region='center' style="padding: 0 10px 0 10px;">
 	<form action="" id="searchForm">

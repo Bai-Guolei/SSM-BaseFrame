@@ -6,21 +6,21 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
  
 public class MongodbUtils {
-	 static final String DBName = "olive-hstz";
-     static final String ServerAddress = "192.168.1.202"; 
-     static final int PORT = 27017;
+	 static final String DBName = "th_hczq";
+     static final String ServerAddress = "192.168.1.7"; 
+     static final int PORT = 9430;
  
      @Test
-     public static MongoClient getMongoClient( ){
-         MongoClient mongoClient = null;
+     public void testMongoClient( ){
          try {
-               // 连接到 mongodb 服务
-             mongoClient = new MongoClient(ServerAddress, PORT); 
+        	 //连接到mogodb服务
+        	 MongoClient mongoClient = new MongoClient( "192.168.1.7" , 9430);
+        	// 连接到数据库
+             MongoDatabase mongoDatabase = mongoClient.getDatabase("th_hczq");  
              System.out.println("Connect to mongodb successfully");
          } catch (Exception e) {
-             System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        	 System.err.println( e.getClass().getName() + ": " + e.getMessage() );
          }
-         return mongoClient;
      }
  
      public static MongoDatabase getMongoDataBase(MongoClient mongoClient) {  

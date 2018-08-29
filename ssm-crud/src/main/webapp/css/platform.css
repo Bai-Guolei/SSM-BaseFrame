@@ -1,0 +1,267 @@
+/* CSS Document */
+ /* reset begin */
+html,body,h1,h2,h3,h4,h5,h6,div,dl,dt,dd,ul,ol,li,p,blockquote,pre,hr,figure,table,caption,th,td,form,fieldset,legend,input,button,textarea,select {
+	margin: 0;
+	padding: 0;
+	
+
+}
+
+header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+body {
+	font-family:"Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 13px;
+	color: #333;
+	outline: 0;
+	border: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.2;
+  background-color: #fff;
+}
+/*form table*/
+.form-table {width:100%;
+	text-align:left;
+	border-top:1px solid #ddd;
+	margin:10px 0;
+	}
+.form-table th {
+	background:#f9f9f9;
+	color:#a8a8a8;
+	font-weight:normal}
+.form-table th,
+.form-table td {
+	border-bottom:1px solid #ddd;
+	padding:3px 10px;
+	height: 39px;}
+/*btn基础样式*/
+.btn-bar {
+	padding: 6px 0 15px 0 ;
+	text-align:center;
+}
+.btn {
+    display: inline-block;
+    padding: 5px 18px;
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: initial;
+    cursor: pointer;
+    border-radius: 3px;
+    background-image: none!important;
+    border: none;
+    text-shadow: none;
+    box-shadow: none;
+}
+.btn-cons {
+    margin-right: 5px;
+    min-width: 64px;
+    margin-bottom: 8px;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.btn-block + .btn-block {
+  margin-top: 8px;
+}
+.btn-xs {
+	 padding: 1px 8px 2px;
+	 }
+.btn-sm {
+	 padding:2px 10px 2px;
+	 }
+.btn-md {
+	 padding: 10px 20px 12px;
+	 font-size:14px;
+	 }
+.btn-lg {
+	 padding: 15px 30px 17px;
+	 font-size:18px;
+	 }
+/*默认背景*/
+.default {
+  color: #9eacba;
+  background-color: #eeeeee;
+  border:1px solid #cecece;
+}
+.default:hover,
+.default:focus,
+.default:active,
+.default.active  {
+    opacity: 0.8;
+    border-color: #cecece;
+}
+/*成功样式*/
+.success {
+    color: #fff;
+    background-color: #42bd41;
+}
+.success:hover,
+.success:focus,
+.success:active,
+.success.active {
+  color: #fff;
+  opacity: 0.8;
+}
+/*基本样式*/
+.primary {
+    color: #fff !important;
+    background-color: #273747;
+}
+.primary:hover,
+.primary:focus,
+.primary:active,
+.primary.active {
+  color: #fff;
+  opacity: 0.8;
+}
+/*警告样式*/
+.warning {
+    color: #fff;
+    background-color: #ffb224;
+}
+.warning:hover,
+.warning:focus,
+.warning:active,
+.warning.active {
+  color: #fff;
+  opacity: 0.8;
+}
+/*危险样式*/
+.danger {
+    color: #fff;
+    background-color: #f35958;
+}
+.danger:hover,
+.danger:focus,
+.danger:active,
+.danger.active
+ {
+  color: #fff;
+  opacity: 0.8;
+}
+/*白色样式*/
+.white {
+    color: #5e5e5e;
+    background-color: #fff;
+    border: 1px solid #e5e9ec;
+}
+.white:hover,
+.white:focus,
+.white:active,
+.white.active {
+     border: 1px solid #3782ff;
+    color: #3782ff;
+}
+/*btn组基础样式*/
+/*form*/
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], select {
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    outline: 0 none;
+    border-radius: 3px;
+    text-indent: 5px;
+    border: 1px solid #ddd;}
+.radio input[type="radio"],
+.checkbox input[type="checkbox"] {
+	position: relative;
+	opacity: 0;
+	vertical-align: middle;
+	z-index: 10;
+	cursor: pointer;
+	left: 15px;
+	top: 0px;
+}
+textarea{padding: .5em;
+    height: auto;
+    line-height: 1.5;
+    resize: vertical;}
+.checkbox,
+.radio {
+	min-width: 40px;
+}
+.radio label:before,
+.checkbox label:before {
+	font-family:"iconfont" !important;
+}
+
+.radio label:before,
+.checkbox label:before {
+	position: relative;
+	top: 2px;
+    left: -5px;
+    font-size: 18px;
+    color: #bbb;
+    height: 18px;
+    line-height: 20px;
+}
+
+.radio label:before {
+	content: "\e616";
+}
+
+.checkbox label:before {
+	content: "\e606";
+}
+
+.radio input[type="radio"]:checked+label:before,
+.checkbox input[type="checkbox"]:checked+label:before,
+.checkbox input[type="checkbox"].checkbox-half+label:before,
+.radio input[type="radio"]:checked+input+label:before,
+.checkbox input[type="checkbox"]:checked+input+label:before,
+.checkbox input[type="checkbox"].checkbox-half+input+label:before {
+	color: #2a5894;
+}
+
+.radio input[type="radio"]:checked+label:before,
+.radio input[type="radio"]:checked+input+label:before {
+	content: "\e7a0";
+}
+
+.checkbox input[type="checkbox"]:checked+label:before,
+.checkbox input[type="checkbox"]:checked+input+label:before {
+	content: "\e725";
+}
+
+.checkbox input[type="checkbox"].checkbox-half+label:before,
+.checkbox input[type="checkbox"].checkbox-half+input+label:before {
+	content: "\f20f";
+}
+
+.radio input[type="radio"]:disabled+label:before,
+.checkbox input[type="checkbox"]:disabled+label:before,
+.radio input[type="radio"]:disabled+input+label:before,
+.checkbox input[type="checkbox"]:disabled+input+label:before {
+	opacity: 0.5;
+}
+
+.radio input[type="radio"]:disabled,
+.checkbox input[type="checkbox"]:disabled {
+	cursor: not-allowed;
+}
+
+.radio label,
+.checkbox label {
+	display: inline-block;
+	height: 20px;
+	line-height: 20px;
+	/* margin-left: 5px;*/
+}
+/*form*/
+/* webuploader颜色 */
+.webuploader-pick{background-color: #273747 !important}
+.webuploader-pick-hover{
+	 color: #fff;
+ 	 opacity: 0.8;
+}

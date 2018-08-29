@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="${ROOT}/js/jquery/opentip/opentip.css" />
 	<link rel="stylesheet" href="${ROOT}/js/bootstrap/jquery-confirm/jquery-confirm.min.css"/>
 	<link rel="stylesheet" href="${ROOT}/js/jquery/toastr/toastr.min.css"/>
+	<link rel="stylesheet" href="${ROOT}/css/platform.css"/>
+	<link rel="stylesheet" href="${ROOT}/js/Font-Awesome-master/css/font-awesome.min.css">
 	<%-- jQuery & Bootstrap --%>
 	<script src="${ROOT}/js/jquery/jquery.min.js"></script>
 	<script src="${ROOT}/js/jquery/jquery-migrate.min.js"></script>
@@ -35,4 +37,5 @@
 	<script src="${ROOT}/js/jquery/jquery.form.js"></script>
 
 	<script>
-</script>
+		var $AppContext = '${ROOT}';
+	</script>
