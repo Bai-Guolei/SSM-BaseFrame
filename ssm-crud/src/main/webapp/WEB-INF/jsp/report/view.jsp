@@ -50,7 +50,6 @@
 					<div id="thelist" class="uploader-list"></div>
 					<div class="btns">
 						<div id="picker">选择文件</div>
-						<button id="ctlBtn" class="btn btn-default">开始上传</button>
 					</div>
 				</div>
 			</td>
@@ -64,35 +63,58 @@
 </body>
 <script type="text/javascript">
 $(function(){
+	//上传组件初始化
+	var uploader = WebUploader.create({
+	 	swf : $AppContext + '/js/webuploader/Uploader.swf',
+	 	server : $AppContext + '/base/file/upload',
+	 	pick : "#picker",
+	 	formData : {},
+	 	auto : true,
+	 	fileSingleSizeLimit : 30 * 1024 * 1024, // 验证单个文件大小是否超出限制, 超出则不允许加入队列。
+	 	duplicate : true, // 不去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
+	 	disableGlobalDnd : true
+	 	// 是否禁掉整个页面的拖拽功能，如果不禁用，图片拖进来的时候会默认被浏览器打开。
+	});
+
+	console.log(uploader);	
+	//当有文件被添加进队列的时候
+	uploader.on( 'fileQueued', function( file ) {
+	     $("#thelist").append( '<div id="' + file.id + '" class="item">' +
+	         '<h4 class="info">' + file.name + '</h4>' +
+	         '<h4 class="info">' + file.size + '</h4>' +
+	         '<p class="state">等待上传...</p>' +
+	     '</div>' );
+	});
+	//上传成功刷新数据
+	uploader.on( 'uploadSuccess', function( file ) {
+	    $( '#'+file.id ).find('p.state').text('已上传');
+	});
+	
+	uploader.on( 'uploadError', function( file ) {
+	    $( '#'+file.id ).find('p.state').text('上传出错');
+	});
+	
+	uploader.on( 'uploadComplete', function( file ) {
+	    $( '#'+file.id ).find('.progress').fadeOut();
+	});
+	
+	// 文件上传过程中创建进度条实时显示。
+	uploader.on( 'uploadProgress', function( file, percentage ) {
+	    var $li = $( '#'+file.id ),
+	        $percent = $li.find('.progress .progress-bar');
+
+	    // 避免重复创建
+	    if ( !$percent.length ) {
+	        $percent = $('<div class="progress progress-striped active">' +
+	          '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+	          '</div>' +
+	        '</div>').appendTo( $li ).find('.progress-bar');
+	    }
+
+	    $li.find('p.state').text('上传中');
+
+	    $percent.css( 'width', percentage * 100 + '%' );
+	});
 })
-
-// //上传组件初始化
-// var uploader = WebUploader.create({
-// 	swf : $AppContext + '/js/webuploader/Uploader.swf',
-// 	server : $AppContext + '/base/file/upload',
-// 	pick : "#picker",
-// 	formData : {},
-// 	auto : true,
-// 	fileSingleSizeLimit : 30 * 1024 * 1024, // 验证单个文件大小是否超出限制, 超出则不允许加入队列。
-// 	duplicate : true, // 不去重， 根据文件名字、文件大小和最后修改时间来生成hash Key.
-// 	disableGlobalDnd : true
-// 	// 是否禁掉整个页面的拖拽功能，如果不禁用，图片拖进来的时候会默认被浏览器打开。
-// });
-
-// console.log(uploader);	
-// //当有文件被添加进队列的时候
-// uploader.on( 'fileQueued', function( file ) {
-//     $("#thelist").append( '<div id="' + file.id + '" class="item">' +
-//         '<h4 class="info">' + file.name + '</h4>' +
-//         '<h4 class="info">' + file.size + '</h4>' +
-//         '<p class="state">等待上传...</p>' +
-//     '</div>' );
-// });
-// //上传成功刷新数据
-// uploader.on( 'uploadSuccess', function( file ) {
-//     console.log("文件上传成功");
-// });
-
-
 </script>
 </html>
