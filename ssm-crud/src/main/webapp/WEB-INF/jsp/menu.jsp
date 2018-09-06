@@ -9,7 +9,7 @@
     <div>
         <ul class="nav navbar-nav navbar-left">
             <li class="actice"><a href="${ROOT }/">首页</a></li>
-            <li><a href="${ROOT }/report/to-view">报告生成</a></li>
+            <li><a href="${ROOT }/report/listView">报告生成</a></li>
             <li><a href="#">风险预警</a></li>
             <li><a href="#">期限查询</a></li>
             <li><a href="#">智能助手</a></li>

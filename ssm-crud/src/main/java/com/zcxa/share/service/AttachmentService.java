@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.zcxa.share.enums.FileSource;
+import com.zcxa.share.enums.FlagEnum;
+import com.zcxa.share.utils.MongoDbUtils;
 import com.zcxa.share.vo.Attachment;
 import com.zcxa.share.vo.User;
 /**
@@ -27,41 +29,34 @@ public class AttachmentService {
 	 * @param fileSource
 	 * @param fileCode
 	 * @return
+	 * @throws Exception 
 	 */
-	public Attachment save(MultipartFile multipartFile, User su, String dataId, String fileSource, String fileCode) {
-		return null;
-//		FileSource source = null;
-//		if(LogicCode.isInteger(fileSource)) {
-//			source = FileSource.findById(fileSource);
-//			if (source == null) {
-//				throw new BusinessException("保存失败，未能找到文件来源编码。");
-//			}
-//		}
-//		else
-//		{
-//			// 兼容扩展字段附件
-//			source = FileSource.Other;
-//		}
-//		// 保存附件至Mogodb
-//		DBObject metaData = new BasicDBObject();
-//		metaData.put("type", source.getType());
-//		String fileId = MongoDB.saveFile(file, null, metaData);
-//
-//		// 保存本地记录
-//		Attachment attachment = new Attachment();
-//		attachment.setCreateTime(new Date());
-//		attachment.setCreateUerId(su.getId());
-//		// 如果DataID为空,则需要在保存相关数据是更新,默认为0
-//		attachment.setDataId(StringUtils.isNotBlank(dataId) ? Long.parseLong(dataId) : 0);
-//		attachment.setDelFlag(FlagEnum.NO.getValue().toString());
-//		attachment.setFileId(fileId);
-//		attachment.setFileName(file.getOriginalFilename());
-//		attachment.setFileSize(file.getSize());
-//		attachment.setFileSource(source.getId());
-//		attachment.setFileCode(StringUtils.isNotBlank(fileCode) ? fileCode : "1");
+	public Attachment save(MultipartFile file, User su, String dataId, String fileSource, String fileCode) throws Exception {
+		
+		FileSource source = null;
+		if(StringUtils.isNotBlank(fileSource)) {
+			source = FileSource.findById(fileSource);
+		}
+		// 保存附件至Mogodb
+		DBObject metaData = new BasicDBObject();
+		metaData.put("type", source.getType());
+		String fileId = MongoDbUtils.saveFile(file, null, metaData);
+
+		// 保存本地记录
+		Attachment attachment = new Attachment();
+		attachment.setCreateTime(new Date());
+		attachment.setCreateUerId(su.getId());
+		// 如果DataID为空,则需要在保存相关数据是更新,默认为0
+		attachment.setDataId(StringUtils.isNotBlank(dataId) ? Long.parseLong(dataId) : 0);
+		attachment.setIsDel(FlagEnum.NO.getId());
+		attachment.setFileId(fileId);
+		attachment.setFileName(file.getOriginalFilename());
+		attachment.setFileSize(file.getSize());
+		attachment.setFileSource(source.getId());
+		attachment.setFileCode(StringUtils.isNotBlank(fileCode) ? fileCode : "1");
 //		long id = this.insertIntoTable(attachment);
 //		attachment.setId(id);
-//		return attachment;
+		return attachment;
 	}
 	
 	

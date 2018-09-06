@@ -28,19 +28,15 @@
 		<col width="35%"/>
 		<tr>
 			<th>标题</th>
-			<td></td>
+			<td><input type="text" maxlength="50" name="title"></td>
 			<th>摘要</th>
-			<td></td>
-		</tr>
-		<tr>
-			<th>申请日</th>
-			<td></td>
-			<th>是否提前公开</th>
-			<td></td>
+			<td><input type="text" maxlength="100" name="summary"></td>
 		</tr>
 		<tr>
 			<th>备注</th>
-			<td colspan="3"></td>
+			<td colspan="3">
+				<textarea rows="3" name="remark"></textarea>
+			</td>
 		</tr>
 		<tr>
 			<th>附件</th>
@@ -57,7 +53,7 @@
 	</table>
 </form>
 <div class="btn-bar">
-	<button class="btn primary" onclick="saveForm(0)">保存</button>
+	<button class="btn primary" onclick="save()">保存</button>
 	<button class="btn default" onclick="goBack()">取消</button>
 </div>
 </body>
@@ -66,7 +62,7 @@ $(function(){
 	//上传组件初始化
 	var uploader = WebUploader.create({
 	 	swf : $AppContext + '/js/webuploader/Uploader.swf',
-	 	server : $AppContext + '/base/file/upload',
+	 	server : $AppContext + '/base/file/uploadfile',
 	 	pick : "#picker",
 	 	formData : {},
 	 	auto : true,
@@ -116,5 +112,25 @@ $(function(){
 	    $percent.css( 'width', percentage * 100 + '%' );
 	});
 })
+/**
+ * 表单保存方法
+ */
+function save(){
+	//1.表单校验
+	
+	//2.获取表单数据
+	 var dataArr = $("#addForm").serializeArray();
+	//3.post提交表单
+	$.post('${ROOT}/report/-1', dataArr, function(data){
+		if (data.success) {
+			alert("保存成功");
+        } else {
+            error(data.msg);
+        }
+	});
+	
+}
+
+
 </script>
 </html>

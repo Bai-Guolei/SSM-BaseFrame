@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.zcxa.share.service.AttachmentService;
+import com.zcxa.share.vo.User;
 
 @RestController
 @RequestMapping(path = "/base/file")
@@ -64,4 +65,14 @@ public class AttachmentController extends BaseController{
             return "";
         }
 	}
+	
+	@RequestMapping("/uploadfile")
+	public Object uploadFile(MultipartFile[] file, String dataId, String fileSource, 
+			String fileCode, HttpServletRequest request, HttpServletResponse resp) throws Exception {
+		String fileName = file[0].getOriginalFilename();
+		User user = new User();
+		service.save(file[0], user, dataId, fileSource, fileCode);
+		return user;
+	}
+	
 }
