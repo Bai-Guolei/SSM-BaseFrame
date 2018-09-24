@@ -21,9 +21,10 @@
 	<form action="" id="searchForm">
 		<input type="hidden" name="keyWords" value="-1">
 	</form>
-	<table class="easyui-datagrid" id="tableGrid" method='post' pagination='true' sortName='id' sortOrder='desc' fitColumns="true" border='true' >   
+	<table class="easyui-datagrid" id="tableGrid" method='post' idField='id' pagination='true' sortName='id' sortOrder='desc' fitColumns="true" border='true' >   
 	    <thead>   
 	        <tr>   
+	        	<th field="ck" checkbox="true"></th>
 	            <th field="name" width="1">编码</th>    
 	            <th field="description" width="1">名称</th>   
 	            <th field="unitPrice" width="1" >价格</th>   

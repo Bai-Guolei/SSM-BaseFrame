@@ -1,2 +1,5 @@
 
 ssm-crud/.classpath
+/ssm-crud/*.classpath
+/ssm-crud/.project
+/ssm-crud/.settings
