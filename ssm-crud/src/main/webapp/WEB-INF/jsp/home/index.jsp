@@ -45,7 +45,18 @@ function initpage(){
 		url : '${ROOT}/product/list',//列表加载地址
 		queryParams : getQueryParams()
 	});
+	
+	
+	$('#tableGrid').datagrid({
+		onDblClickRow:function(index, value){
+			$.messager.confirm('确认','您确认想要删除记录吗？',function(r){    
+			    if (r){    
+			        alert('确认删除');    
+			    }    
+			});  
 
+		}
+	})
 }
 //组合查询条件
 function getQueryParams(){
